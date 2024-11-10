@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import {
   fireEvent,
   render,
@@ -131,32 +132,57 @@ describe("ScoreBoard", () => {
   });
 
   it("renders the summary section with the correct games", async () => {
+    const user = userEvent.setup();
+
+    // Start game
     const homeTeamInput = screen.getByLabelText("Home Team");
     const awayTeamInput = screen.getByLabelText("Away Team");
-    const startGameButton = screen.getByRole("button", {
-      name: "Start Game",
-    });
+    const startGameButton = screen.getByRole("button", { name: "Start Game" });
 
-    fireEvent.change(homeTeamInput, { target: { value: "Germany" } });
-    fireEvent.change(awayTeamInput, { target: { value: "France" } });
-    fireEvent.click(startGameButton);
+    await user.type(homeTeamInput, "Germany");
+    await user.type(awayTeamInput, "France");
+    await user.click(startGameButton);
 
-    const firstGame = screen.getByRole("listitem", {
+    // Update score
+    const liveGame = await screen.findByRole("listitem", {
       name: "Germany vs France",
     });
-    const finishButton = within(firstGame).getByRole("button", {
+    const homeScoreInput = within(liveGame).getByLabelText("Home Score");
+    const awayScoreInput = within(liveGame).getByLabelText("Away Score");
+    const updateScoreButton = within(liveGame).getByRole("button", {
+      name: "Update Score",
+    });
+
+    await user.type(homeScoreInput, "2");
+    await user.type(awayScoreInput, "3");
+    await user.click(updateScoreButton);
+
+    // Finish game
+    const finishButton = within(liveGame).getByRole("button", {
       name: "Finish",
     });
-    fireEvent.click(finishButton);
+    await user.click(finishButton);
 
-    await waitFor(() => {
-      // const summaryTab = screen.getByRole("tab", { name: /summary/i });
-      // fireEvent.click(summaryTab);
+    // Switch to summary tab
+    await user.click(screen.getByRole("tab", { name: /summary/i }));
 
-      const summarySection = screen.getByTestId("summary");
-      const summaryItem = within(summarySection).getByRole("listitem");
-
-      expect(summaryItem).toBeInTheDocument();
+    // Wait for and verify the summary content
+    const summaryPanel = await screen.findByRole("tabpanel", {
+      name: /summary/i,
     });
+    const summaryList = within(summaryPanel).getByRole("list");
+    const summaryItems = within(summaryList).getAllByRole("listitem");
+
+    expect(summaryItems).toHaveLength(1);
+    expect(summaryItems[0]).toHaveAccessibleName("Germany vs France");
+
+    const scoreDisplay = within(summaryItems[0]).getByRole("status");
+
+    screen.debug(scoreDisplay);
+
+    expect(scoreDisplay).toHaveAccessibleName(
+      "Total score: France 3, Germany 2"
+    );
+    expect(scoreDisplay).toHaveTextContent("3:2");
   });
 });
