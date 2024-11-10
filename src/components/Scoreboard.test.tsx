@@ -95,6 +95,41 @@ describe("ScoreBoard", () => {
     expect(gameItem).not.toBeInTheDocument();
   });
 
+  it("allows user to update the score of a game", async () => {
+    const homeTeamInput = screen.getByLabelText("Home Team");
+    const awayTeamInput = screen.getByLabelText("Away Team");
+    const startGameButton = screen.getByRole("button", {
+      name: "Start Game",
+    });
+
+    fireEvent.change(homeTeamInput, { target: { value: "Germany" } });
+    fireEvent.change(awayTeamInput, { target: { value: "France" } });
+    fireEvent.click(startGameButton);
+
+    const liveGamesSection = screen.getByTestId("live-games");
+    const gameItem = within(liveGamesSection).getByRole("listitem", {
+      name: "Germany vs France",
+    });
+
+    const homeScoreInput = within(gameItem).getByLabelText("Home Score");
+    const awayScoreInput = within(gameItem).getByLabelText("Away Score");
+    const updateScoreButton = within(gameItem).getByRole("button", {
+      name: "Update Score",
+    });
+
+    fireEvent.change(homeScoreInput, { target: { value: "1" } });
+    fireEvent.change(awayScoreInput, { target: { value: "2" } });
+    fireEvent.click(updateScoreButton);
+
+    await waitFor(() => {
+      const scoreDisplay = within(gameItem).getByRole("status");
+      expect(scoreDisplay).toHaveAccessibleName(
+        "Current score: France 2, Germany 1"
+      );
+      expect(scoreDisplay).toHaveTextContent("2:1");
+    });
+  });
+
   it("renders the summary section with the correct games", async () => {
     const homeTeamInput = screen.getByLabelText("Home Team");
     const awayTeamInput = screen.getByLabelText("Away Team");
