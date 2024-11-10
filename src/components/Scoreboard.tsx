@@ -31,7 +31,7 @@ const ScoreBoard = () => {
   return (
     <div data-testid="scoreboard">
       <h1>Football World Cup Score Board</h1>
-      <div data-testid="start-game">
+      <section data-testid="start-game">
         <label htmlFor="homeTeam" className="sr-only">
           Home Team
         </label>
@@ -55,9 +55,9 @@ const ScoreBoard = () => {
           aria-label="Away Team"
         />
         <button onClick={handleStartGame}>Start Game</button>
-      </div>
+      </section>
 
-      <div data-testid="live-games">
+      <section data-testid="live-games">
         <h2>Live Games</h2>
         {liveGames.length > 0 ? (
           <ul>
@@ -91,9 +91,9 @@ const ScoreBoard = () => {
             There are no live games currently
           </p>
         )}
-      </div>
+      </section>
 
-      <div data-testid="summary">
+      <section data-testid="summary">
         <h2>Summary</h2>
         {summary.length > 0 ? (
           <ul>
@@ -124,7 +124,7 @@ const ScoreBoard = () => {
             There are no finished games
           </p>
         )}
-      </div>
+      </section>
     </div>
   );
 };

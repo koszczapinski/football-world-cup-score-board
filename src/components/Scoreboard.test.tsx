@@ -94,4 +94,31 @@ describe("ScoreBoard", () => {
 
     expect(gameItem).not.toBeInTheDocument();
   });
+
+  it("renders the summary section with the correct games", async () => {
+    const homeTeamInput = screen.getByLabelText("Home Team");
+    const awayTeamInput = screen.getByLabelText("Away Team");
+    const startGameButton = screen.getByRole("button", {
+      name: "Start Game",
+    });
+
+    fireEvent.change(homeTeamInput, { target: { value: "Germany" } });
+    fireEvent.change(awayTeamInput, { target: { value: "France" } });
+    fireEvent.click(startGameButton);
+
+    const firstGame = screen.getByRole("listitem", {
+      name: "Germany vs France",
+    });
+    const finishButton = within(firstGame).getByRole("button", {
+      name: "Finish",
+    });
+    fireEvent.click(finishButton);
+
+    await waitFor(() => {
+      const summarySection = screen.getByTestId("summary");
+      const summaryItem = within(summarySection).getByRole("listitem");
+
+      expect(summaryItem).toBeInTheDocument();
+    });
+  });
 });
