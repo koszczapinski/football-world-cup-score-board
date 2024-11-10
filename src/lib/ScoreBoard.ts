@@ -24,6 +24,22 @@ export class ScoreBoard {
     return game;
   }
 
+  private validateTeams(homeTeam: string, awayTeam: string): void {
+    if (!homeTeam || !awayTeam) {
+      throw new Error("Both home team and away team are required");
+    }
+
+    if (homeTeam === awayTeam) {
+      throw new Error("Home team and away team cannot be the same");
+    }
+  }
+
+  private validateScores(homeScore: number, awayScore: number): void {
+    if (homeScore < 0 || awayScore < 0) {
+      throw new Error("Score cannot be negative");
+    }
+  }
+
   private calculateTotalScore(game: Game): number {
     return game.homeScore + game.awayScore;
   }
@@ -40,13 +56,7 @@ export class ScoreBoard {
   }
 
   startGame({ homeTeam, awayTeam }: StartGameParams) {
-    if (!homeTeam || !awayTeam) {
-      throw new Error("Both home team and away team are required");
-    }
-
-    if (homeTeam === awayTeam) {
-      throw new Error("Home team and away team cannot be the same");
-    }
+    this.validateTeams(homeTeam, awayTeam);
 
     const matchExists = this.games.some(
       (game) =>
@@ -74,9 +84,7 @@ export class ScoreBoard {
   }
 
   updateScore(id: string, { homeScore, awayScore }: UpdateScoreParams) {
-    if (homeScore < 0 || awayScore < 0) {
-      throw new Error("Score cannot be negative");
-    }
+    this.validateScores(homeScore, awayScore);
 
     const game = this.getGameById(id);
 
