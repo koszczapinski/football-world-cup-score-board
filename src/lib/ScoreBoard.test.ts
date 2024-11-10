@@ -120,6 +120,16 @@ describe("ScoreBoard", () => {
       ).toThrow("Score cannot be negative");
     });
 
+    it("should not allow non-integer scores", () => {
+      const game = scoreboard.startGame({
+        homeTeam: "Mexico",
+        awayTeam: "Canada",
+      });
+      expect(() =>
+        scoreboard.updateScore(game.id, { homeScore: 1.5, awayScore: NaN })
+      ).toThrow("Scores must be integer numbers");
+    });
+
     it("should not update score for finished match", () => {
       const game = scoreboard.startGame({
         homeTeam: "Mexico",

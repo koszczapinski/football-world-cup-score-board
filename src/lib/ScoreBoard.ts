@@ -60,6 +60,10 @@ export class ScoreBoard {
   }
 
   private validateScores(homeScore: number, awayScore: number): void {
+    if (!Number.isInteger(homeScore) || !Number.isInteger(awayScore)) {
+      throw new Error("Scores must be integer numbers");
+    }
+
     if (homeScore < 0 || awayScore < 0) {
       throw new Error("Score cannot be negative");
     }
@@ -136,10 +140,8 @@ export class ScoreBoard {
   }
 
   getSummaryByTotalScore(): Game[] {
-    return this.getFinishedGames().sort((a, b) => {
-      const totalA = a.homeScore + a.awayScore;
-      const totalB = b.homeScore + b.awayScore;
-      return totalB - totalA || b.timestamp - a.timestamp;
-    });
+    return this.getFinishedGames().sort((a, b) =>
+      this.sortByTotalScoreAndTimestamp(a, b)
+    );
   }
 }
