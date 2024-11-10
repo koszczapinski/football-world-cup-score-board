@@ -1,18 +1,17 @@
 import { ScoreBoard as ScoreBoardLib } from "@/lib/ScoreBoard";
 import { Game } from "@/lib/types";
-import { useCallback, useState } from "react";
-
-const scoreBoard = new ScoreBoardLib();
+import { useCallback, useState, useMemo } from "react";
 
 const ScoreBoard = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
+  const scoreBoard = useMemo(() => new ScoreBoardLib(), []);
 
   const refreshGames = useCallback(() => {
     setGames([...scoreBoard.getAllGames()]);
     console.log(games);
-  }, [games]);
+  }, [scoreBoard, games]);
 
   const handleStartGame = () => {
     scoreBoard.startGame({ homeTeam, awayTeam });
