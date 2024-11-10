@@ -14,6 +14,10 @@ export class ScoreBoard {
       throw new Error("Both home team and away team are required");
     }
 
+    if (homeTeam === awayTeam) {
+      throw new Error("Home team and away team cannot be the same");
+    }
+
     if (
       this.games.some(
         (game) => game.homeTeam === homeTeam || game.awayTeam === awayTeam

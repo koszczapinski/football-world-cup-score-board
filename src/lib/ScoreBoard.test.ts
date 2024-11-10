@@ -41,12 +41,18 @@ describe("ScoreBoard", () => {
       ).toThrow("Both home team and away team are required");
     });
 
-    it("should prevent duplicate games", () => {
+    it("should throw error if teams are already playing", () => {
       scoreboard.startGame({ homeTeam: "Mexico", awayTeam: "Canada" });
       expect(() =>
         scoreboard.startGame({ homeTeam: "Mexico", awayTeam: "Canada" })
       ).toThrow("Game already started");
       expect(scoreboard.getAllGames()).toHaveLength(1);
+    });
+
+    it("should throw error if away team is the same as home team", () => {
+      expect(() =>
+        scoreboard.startGame({ homeTeam: "Mexico", awayTeam: "Mexico" })
+      ).toThrow("Home team and away team cannot be the same");
     });
   });
 });
