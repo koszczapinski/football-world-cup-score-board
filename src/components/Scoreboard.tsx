@@ -1,17 +1,32 @@
 import { ScoreBoard as ScoreBoardLib } from "@/lib/ScoreBoard";
-import { useState } from "react";
+import { Game } from "@/lib/types";
+import { useCallback, useState } from "react";
 
 const scoreBoard = new ScoreBoardLib();
 
 const ScoreBoard = () => {
+  const [games, setGames] = useState<Game[]>([]);
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
+
+  const refreshGames = useCallback(() => {
+    setGames([...scoreBoard.getAllGames()]);
+    console.log(games);
+  }, [games]);
 
   const handleStartGame = () => {
     scoreBoard.startGame({ homeTeam, awayTeam });
     setHomeTeam("");
     setAwayTeam("");
+    refreshGames();
   };
+
+  const handleFinishGame = (id: string) => {
+    scoreBoard.finishGame(id);
+    refreshGames();
+  };
+  const liveGames = scoreBoard.getLiveGames();
+  const summary = scoreBoard.getSummaryByTotalScore();
 
   return (
     <div data-testid="scoreboard">
@@ -44,11 +59,10 @@ const ScoreBoard = () => {
 
       <div data-testid="live-games">
         <h2>Live Games</h2>
-        {scoreBoard.getLiveGames().length > 0 ? (
+        {liveGames.length > 0 ? (
           <ul>
-            {scoreBoard
-              .getLiveGames()
-              .map(({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
+            {liveGames.map(
+              ({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
                 <li
                   key={id}
                   aria-label={`${homeTeam} vs ${awayTeam}`}
@@ -67,8 +81,10 @@ const ScoreBoard = () => {
                     <span>{homeScore}</span>
                   </div>
                   <h3 aria-label="Away team">{awayTeam}</h3>
+                  <button onClick={() => handleFinishGame(id)}>Finish</button>
                 </li>
-              ))}
+              )
+            )}
           </ul>
         ) : (
           <p className="text-gray-500 text-center py-4">
@@ -79,6 +95,35 @@ const ScoreBoard = () => {
 
       <div data-testid="summary">
         <h2>Summary</h2>
+        {summary.length > 0 ? (
+          <ul>
+            {summary.map(({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
+              <li
+                key={id}
+                aria-label={`${homeTeam} vs ${awayTeam}`}
+                className="flex flex-col items-center gap-2"
+              >
+                <h3 aria-label="Home team" className="text-lg font-bold">
+                  {homeTeam}
+                </h3>
+                <div
+                  role="status"
+                  aria-label={`Total score: ${awayTeam} ${awayScore}, ${homeTeam} ${homeScore}`}
+                  className="flex items-center gap-2"
+                >
+                  <span>{awayScore}</span>
+                  <span aria-hidden="true">:</span>
+                  <span>{homeScore}</span>
+                </div>
+                <h3 aria-label="Away team">{awayTeam}</h3>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500 text-center py-4">
+            There are no finished games
+          </p>
+        )}
       </div>
     </div>
   );

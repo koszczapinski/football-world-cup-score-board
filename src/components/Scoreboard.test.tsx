@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { describe, expect, it, beforeEach } from "vitest";
 import ScoreBoard from "./ScoreBoard";
 
@@ -64,20 +70,20 @@ describe("ScoreBoard", () => {
     expect(scoreDisplay).toHaveTextContent("0:0");
   });
 
-  it("allows user to finish a game", () => {
+  it("allows user to finish a game", async () => {
     const homeTeamInput = screen.getByLabelText("Home Team");
     const awayTeamInput = screen.getByLabelText("Away Team");
     const startGameButton = screen.getByRole("button", {
       name: "Start Game",
     });
 
-    fireEvent.change(homeTeamInput, { target: { value: "Mexico" } });
-    fireEvent.change(awayTeamInput, { target: { value: "Canada" } });
+    fireEvent.change(homeTeamInput, { target: { value: "Poland" } });
+    fireEvent.change(awayTeamInput, { target: { value: "Argentina" } });
     fireEvent.click(startGameButton);
 
     const liveGamesSection = screen.getByTestId("live-games");
     const gameItem = within(liveGamesSection).getByRole("listitem", {
-      name: "Mexico vs Canada",
+      name: "Poland vs Argentina",
     });
 
     const finishGameButton = within(gameItem).getByRole("button", {
