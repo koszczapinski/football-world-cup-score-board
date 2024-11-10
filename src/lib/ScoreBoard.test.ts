@@ -72,5 +72,16 @@ describe("ScoreBoard", () => {
       expect(finishedGames).toHaveLength(1);
       expect(liveGames).toHaveLength(0);
     });
+
+    it("should not allow finishing already finished game", () => {
+      const game = scoreboard.startGame({
+        homeTeam: "Mexico",
+        awayTeam: "Canada",
+      });
+      scoreboard.finishGame(game.id);
+      expect(() => scoreboard.finishGame(game.id)).toThrow(
+        "Game already finished"
+      );
+    });
   });
 });

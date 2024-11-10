@@ -63,6 +63,11 @@ export class ScoreBoard {
     if (!game) {
       throw new Error("Game not found");
     }
+
+    if (game.status === GameStatus.FINISHED) {
+      throw new Error("Game already finished");
+    }
+
     game.status = GameStatus.FINISHED;
   }
 
