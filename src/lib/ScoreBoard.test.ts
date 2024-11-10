@@ -83,5 +83,11 @@ describe("ScoreBoard", () => {
         "Game already finished"
       );
     });
+
+    it("should throw error if game is not found", () => {
+      expect(() => scoreboard.finishGame("not-existing-id")).toThrow(
+        "Game not found"
+      );
+    });
   });
 });
