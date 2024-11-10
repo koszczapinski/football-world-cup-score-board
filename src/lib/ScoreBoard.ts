@@ -37,6 +37,21 @@ export class ScoreBoard {
     return game;
   }
 
+  private calculateTotalScore(game: Game): number {
+    return game.homeScore + game.awayScore;
+  }
+
+  private sortByTotalScoreAndTimestamp(a: Game, b: Game): number {
+    const totalScoreA = this.calculateTotalScore(a);
+    const totalScoreB = this.calculateTotalScore(b);
+
+    if (totalScoreB !== totalScoreA) {
+      return totalScoreB - totalScoreA;
+    }
+
+    return b.timestamp - a.timestamp;
+  }
+
   startGame({ homeTeam, awayTeam }: { homeTeam: string; awayTeam: string }) {
     if (!homeTeam || !awayTeam) {
       throw new Error("Both home team and away team are required");
@@ -114,15 +129,6 @@ export class ScoreBoard {
   getSummaryByTotalScore(): Game[] {
     return this.games
       .filter((game) => game.status === GameStatus.FINISHED)
-      .sort((a, b) => {
-        const totalScoreA = a.homeScore + a.awayScore;
-        const totalScoreB = b.homeScore + b.awayScore;
-
-        if (totalScoreB !== totalScoreA) {
-          return totalScoreB - totalScoreA;
-        }
-
-        return b.timestamp - a.timestamp;
-      });
+      .sort((a, b) => this.sortByTotalScoreAndTimestamp(a, b));
   }
 }
