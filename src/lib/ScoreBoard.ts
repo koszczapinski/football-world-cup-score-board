@@ -110,4 +110,19 @@ export class ScoreBoard {
   getFinishedGames(): Game[] {
     return this.games.filter((game) => game.status === GameStatus.FINISHED);
   }
+
+  getSummaryByTotalScore(): Game[] {
+    return this.games
+      .filter((game) => game.status === GameStatus.FINISHED)
+      .sort((a, b) => {
+        const totalScoreA = a.homeScore + a.awayScore;
+        const totalScoreB = b.homeScore + b.awayScore;
+
+        if (totalScoreB !== totalScoreA) {
+          return totalScoreB - totalScoreA;
+        }
+
+        return b.timestamp - a.timestamp;
+      });
+  }
 }
