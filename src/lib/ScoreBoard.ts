@@ -24,6 +24,19 @@ export class ScoreBoard {
     return Date.now();
   }
 
+  private getGameById(id: string): Game {
+    if (!id) {
+      throw new Error("Game ID is required");
+    }
+
+    const game = this.games.find((game) => game.id === id);
+    if (!game) {
+      throw new Error("Game not found");
+    }
+
+    return game;
+  }
+
   startGame({ homeTeam, awayTeam }: { homeTeam: string; awayTeam: string }) {
     if (!homeTeam || !awayTeam) {
       throw new Error("Both home team and away team are required");
@@ -62,11 +75,11 @@ export class ScoreBoard {
     id: string,
     { homeScore, awayScore }: { homeScore: number; awayScore: number }
   ) {
-    const game = this.games.find((game) => game.id === id);
-
-    if (!game) {
-      throw new Error("Game not found");
+    if (homeScore < 0 || awayScore < 0) {
+      throw new Error("Score cannot be negative");
     }
+
+    const game = this.getGameById(id);
 
     if (game.status === GameStatus.FINISHED) {
       throw new Error("Game already finished");
@@ -77,10 +90,7 @@ export class ScoreBoard {
   }
 
   finishGame(id: string) {
-    const game = this.games.find((game) => game.id === id);
-    if (!game) {
-      throw new Error("Game not found");
-    }
+    const game = this.getGameById(id);
 
     if (game.status === GameStatus.FINISHED) {
       throw new Error("Game already finished");
