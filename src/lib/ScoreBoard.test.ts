@@ -106,6 +106,20 @@ describe("ScoreBoard", () => {
       expect(game.awayScore).toBe(2);
     });
 
+    it("should not update score for finished match", () => {
+      const game = scoreboard.startGame({
+        homeTeam: "Mexico",
+        awayTeam: "Canada",
+      });
+      scoreboard.finishGame(game.id);
+      expect(() =>
+        scoreboard.updateScore(game.id, {
+          homeScore: 1,
+          awayScore: 2,
+        })
+      ).toThrow("Game already finished");
+    });
+
     it("should throw error if game is not found", () => {
       expect(() =>
         scoreboard.updateScore("not-existing-id", {

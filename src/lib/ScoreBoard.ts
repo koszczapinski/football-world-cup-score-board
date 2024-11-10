@@ -68,6 +68,10 @@ export class ScoreBoard {
       throw new Error("Game not found");
     }
 
+    if (game.status === GameStatus.FINISHED) {
+      throw new Error("Game already finished");
+    }
+
     game.homeScore = homeScore;
     game.awayScore = awayScore;
   }
@@ -85,15 +89,15 @@ export class ScoreBoard {
     game.status = GameStatus.FINISHED;
   }
 
-  getAllGames() {
+  getAllGames(): Game[] {
     return this.games;
   }
 
-  getLiveGames() {
+  getLiveGames(): Game[] {
     return this.games.filter((game) => game.status === GameStatus.LIVE);
   }
 
-  getFinishedGames() {
+  getFinishedGames(): Game[] {
     return this.games.filter((game) => game.status === GameStatus.FINISHED);
   }
 }
