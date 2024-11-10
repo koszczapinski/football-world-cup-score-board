@@ -90,4 +90,20 @@ describe("ScoreBoard", () => {
       );
     });
   });
+
+  describe("updateScore", () => {
+    it("should update the score of a game", () => {
+      const game = scoreboard.startGame({
+        homeTeam: "Mexico",
+        awayTeam: "Canada",
+      });
+      scoreboard.updateScore(game.id, {
+        homeScore: 1,
+        awayScore: 2,
+      });
+
+      expect(game.homeScore).toBe(1);
+      expect(game.awayScore).toBe(2);
+    });
+  });
 });
