@@ -1,11 +1,12 @@
 import { ScoreBoard as ScoreBoardLib } from "@/lib/ScoreBoard";
-import { Game } from "@/lib/types";
+import { Game, LiveScores } from "@/lib/types";
 import { useCallback, useState, useMemo } from "react";
 
 const ScoreBoard = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
+  const [liveScores, setLiveScores] = useState<LiveScores>({});
   const scoreBoard = useMemo(() => new ScoreBoardLib(), []);
 
   const refreshGames = useCallback(() => {
@@ -20,10 +21,38 @@ const ScoreBoard = () => {
     refreshGames();
   };
 
+  const handleScoreInputChange = useCallback(
+    (id: string, field: "homeScore" | "awayScore", value: string) => {
+      setLiveScores((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          [field]: parseInt(value) || 0,
+        },
+      }));
+    },
+    []
+  );
+
+  const handleUpdateScore = useCallback(
+    (id: string) => {
+      const scores = liveScores[id];
+      if (!scores) return;
+
+      scoreBoard.updateScore(id, {
+        homeScore: scores.homeScore ?? 0,
+        awayScore: scores.awayScore ?? 0,
+      });
+      refreshGames();
+    },
+    [scoreBoard, liveScores, refreshGames]
+  );
+
   const handleFinishGame = (id: string) => {
     scoreBoard.finishGame(id);
     refreshGames();
   };
+
   const liveGames = scoreBoard.getLiveGames();
   const summary = scoreBoard.getSummaryByTotalScore();
 
@@ -80,6 +109,32 @@ const ScoreBoard = () => {
                     <span>{homeScore}</span>
                   </div>
                   <h3 aria-label="Away team">{awayTeam}</h3>
+                  <div className="flex gap-2">
+                    <label htmlFor={`homeScore-${id}`}>Home Score</label>
+                    <input
+                      id={`homeScore-${id}`}
+                      type="number"
+                      min={0}
+                      value={liveScores[id]?.homeScore ?? 0}
+                      onChange={(e) =>
+                        handleScoreInputChange(id, "homeScore", e.target.value)
+                      }
+                    />
+                    <span aria-hidden="true">:</span>
+                    <label htmlFor={`awayScore-${id}`}>Away Score</label>
+                    <input
+                      id={`awayScore-${id}`}
+                      type="number"
+                      min={0}
+                      value={liveScores[id]?.awayScore ?? 0}
+                      onChange={(e) =>
+                        handleScoreInputChange(id, "awayScore", e.target.value)
+                      }
+                    />
+                    <button onClick={() => handleUpdateScore(id)}>
+                      Update Score
+                    </button>
+                  </div>
                   <button onClick={() => handleFinishGame(id)}>Finish</button>
                 </li>
               )

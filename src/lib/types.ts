@@ -22,3 +22,10 @@ export type UpdateScoreParams = {
   homeScore: number;
   awayScore: number;
 };
+
+export type LiveScores = {
+  [id: string]: {
+    homeScore: number;
+    awayScore: number;
+  };
+};
