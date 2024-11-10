@@ -18,10 +18,14 @@ const ScoreBoard = () => {
   }, [scoreBoard, games]);
 
   const handleStartGame = () => {
-    scoreBoard.startGame({ homeTeam, awayTeam });
-    setHomeTeam("");
-    setAwayTeam("");
-    refreshGames();
+    try {
+      scoreBoard.startGame({ homeTeam, awayTeam });
+      setHomeTeam("");
+      setAwayTeam("");
+      refreshGames();
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const handleScoreInputChange = useCallback(
@@ -39,21 +43,29 @@ const ScoreBoard = () => {
 
   const handleUpdateScore = useCallback(
     (id: string) => {
-      const scores = liveScores[id];
-      if (!scores) return;
+      try {
+        const scores = liveScores[id];
+        if (!scores) return;
 
-      scoreBoard.updateScore(id, {
-        homeScore: scores.homeScore ?? 0,
-        awayScore: scores.awayScore ?? 0,
-      });
-      refreshGames();
+        scoreBoard.updateScore(id, {
+          homeScore: scores.homeScore ?? 0,
+          awayScore: scores.awayScore ?? 0,
+        });
+        refreshGames();
+      } catch (error) {
+        alert(error);
+      }
     },
     [scoreBoard, liveScores, refreshGames]
   );
 
   const handleFinishGame = (id: string) => {
-    scoreBoard.finishGame(id);
-    refreshGames();
+    try {
+      scoreBoard.finishGame(id);
+      refreshGames();
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const liveGames = scoreBoard.getLiveGames();
@@ -99,7 +111,7 @@ const ScoreBoard = () => {
                     <h3 aria-label="Away team">{awayTeam}</h3>
                     <div className="flex gap-2">
                       <label htmlFor={`homeScore-${id}`}>Home Score</label>
-                      <input
+                      <Input
                         id={`homeScore-${id}`}
                         type="number"
                         min={0}
