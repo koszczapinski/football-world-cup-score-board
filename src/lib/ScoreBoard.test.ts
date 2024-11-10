@@ -57,4 +57,20 @@ describe("ScoreBoard", () => {
       ).toThrow("Home team and away team cannot be the same");
     });
   });
+
+  describe("finishGame", () => {
+    it("should finish a game", () => {
+      const game = scoreboard.startGame({
+        homeTeam: "Mexico",
+        awayTeam: "Canada",
+      });
+      scoreboard.finishGame(game.id);
+
+      const finishedGames = scoreboard.getFinishedGames();
+      const liveGames = scoreboard.getLiveGames();
+
+      expect(finishedGames).toHaveLength(1);
+      expect(liveGames).toHaveLength(0);
+    });
+  });
 });
