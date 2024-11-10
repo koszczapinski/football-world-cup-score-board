@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, beforeEach } from "vitest";
-import ScoreBoard from "./Scoreboard";
+import ScoreBoard from "./ScoreBoard";
 
 describe("ScoreBoard", () => {
   beforeEach(() => {
@@ -17,5 +17,15 @@ describe("ScoreBoard", () => {
       name: "Football World Cup Score Board",
     });
     expect(title).toBeInTheDocument();
+  });
+
+  it("renders the live games section", () => {
+    const liveGamesSection = screen.getByTestId("live-games");
+    expect(liveGamesSection).toBeInTheDocument();
+  });
+
+  it("renders summary section", () => {
+    const summarySection = screen.getByTestId("summary");
+    expect(summarySection).toBeInTheDocument();
   });
 });
