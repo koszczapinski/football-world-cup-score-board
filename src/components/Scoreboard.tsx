@@ -126,7 +126,7 @@ const ScoreBoard = () => {
                       />
                       <span aria-hidden="true">:</span>
                       <label htmlFor={`awayScore-${id}`}>Away Score</label>
-                      <input
+                      <Input
                         id={`awayScore-${id}`}
                         type="number"
                         min={0}
@@ -153,7 +153,10 @@ const ScoreBoard = () => {
               There are no live games
             </p>
           )}
-          <div data-testid="start-game" className="flex items-center gap-4">
+          <div
+            data-testid="start-game"
+            className="grid grid-cols-3 items-center gap-4"
+          >
             <label htmlFor="homeTeam" className="sr-only">
               Home Team
             </label>
@@ -165,6 +168,7 @@ const ScoreBoard = () => {
               placeholder="Home Team"
               aria-label="Home Team"
             />
+            <Button onClick={handleStartGame}>Start Game</Button>
             <label htmlFor="awayTeam" className="sr-only">
               Away Team
             </label>
@@ -176,7 +180,6 @@ const ScoreBoard = () => {
               placeholder="Away Team"
               aria-label="Away Team"
             />
-            <Button onClick={handleStartGame}>Start Game</Button>
           </div>
         </TabsContent>
         <TabsContent value="summary" data-testid="summary">
