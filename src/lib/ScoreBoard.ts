@@ -58,7 +58,23 @@ export class ScoreBoard {
     return game;
   }
 
+  finishGame(id: string) {
+    const game = this.games.find((game) => game.id === id);
+    if (!game) {
+      throw new Error("Game not found");
+    }
+    game.status = GameStatus.FINISHED;
+  }
+
   getAllGames() {
     return this.games;
+  }
+
+  getLiveGames() {
+    return this.games.filter((game) => game.status === GameStatus.LIVE);
+  }
+
+  getFinishedGames() {
+    return this.games.filter((game) => game.status === GameStatus.FINISHED);
   }
 }
