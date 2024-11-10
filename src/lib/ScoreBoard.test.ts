@@ -142,4 +142,38 @@ describe("ScoreBoard", () => {
       ).toThrow("Game not found");
     });
   });
+
+  describe("getSummaryByTotalScore", () => {
+    it("should return a summary of games by total score", () => {
+      const game1 = scoreboard.startGame({
+        homeTeam: "Mexico",
+        awayTeam: "Canada",
+      });
+      const game2 = scoreboard.startGame({
+        homeTeam: "Spain",
+        awayTeam: "Brazil",
+      });
+      const game3 = scoreboard.startGame({
+        homeTeam: "Germany",
+        awayTeam: "France",
+      });
+      const game4 = scoreboard.startGame({
+        homeTeam: "Uruguay",
+        awayTeam: "Italy",
+      });
+      const game5 = scoreboard.startGame({
+        homeTeam: "Argentina",
+        awayTeam: "Australia",
+      });
+
+      scoreboard.updateScore(game1.id, { homeScore: 0, awayScore: 5 });
+      scoreboard.updateScore(game2.id, { homeScore: 10, awayScore: 2 });
+      scoreboard.updateScore(game3.id, { homeScore: 2, awayScore: 2 });
+      scoreboard.updateScore(game4.id, { homeScore: 6, awayScore: 6 });
+      scoreboard.updateScore(game5.id, { homeScore: 3, awayScore: 1 });
+
+      const summary = scoreboard.getSummaryByTotalScore();
+      expect(summary).toEqual([game4, game2, game1, game5, game3]);
+    });
+  });
 });
