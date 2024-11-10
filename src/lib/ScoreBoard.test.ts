@@ -106,6 +106,19 @@ describe("ScoreBoard", () => {
       expect(game.awayScore).toBe(2);
     });
 
+    it("should not allow negative scores", () => {
+      const game = scoreboard.startGame({
+        homeTeam: "Mexico",
+        awayTeam: "Canada",
+      });
+      expect(() =>
+        scoreboard.updateScore(game.id, {
+          homeScore: -1,
+          awayScore: 2,
+        })
+      ).toThrow("Score cannot be negative");
+    });
+
     it("should not update score for finished match", () => {
       const game = scoreboard.startGame({
         homeTeam: "Mexico",
