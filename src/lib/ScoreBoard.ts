@@ -11,6 +11,31 @@ export class ScoreBoard {
     return Date.now();
   }
 
+  private createGame(homeTeam: string, awayTeam: string): Game {
+    return {
+      id: this.generateId(),
+      homeTeam: this.normalizeTeamName(homeTeam),
+      awayTeam: this.normalizeTeamName(awayTeam),
+      homeScore: 0,
+      awayScore: 0,
+      timestamp: this.getCurrentTimestamp(),
+      status: GameStatus.LIVE,
+    };
+  }
+
+  private normalizeTeamName(name: string): string {
+    if (!name) {
+      throw new Error("Team name cannot be empty");
+    }
+
+    return name
+      .trim()
+      .replace(/\s+/g, " ")
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  }
+
   private getGameById(id: string): Game {
     if (!id) {
       throw new Error("Game ID is required");
@@ -69,15 +94,7 @@ export class ScoreBoard {
       throw new Error("Game already started");
     }
 
-    const game: Game = {
-      id: this.generateId(),
-      homeTeam,
-      awayTeam,
-      homeScore: 0,
-      awayScore: 0,
-      timestamp: this.getCurrentTimestamp(),
-      status: GameStatus.LIVE,
-    };
+    const game: Game = this.createGame(homeTeam, awayTeam);
 
     this.games.push(game);
     return game;
