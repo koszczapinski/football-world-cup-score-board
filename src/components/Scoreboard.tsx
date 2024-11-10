@@ -1,3 +1,7 @@
+import { ScoreBoard as ScoreBoardLib } from "@/lib/ScoreBoard";
+
+const scoreBoard = new ScoreBoardLib();
+
 const ScoreBoard = () => {
   return (
     <>

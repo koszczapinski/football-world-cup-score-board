@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, beforeEach } from "vitest";
-import ScoreBoard from "./ScoreBoard";
+import ScoreBoard from "@/components/ScoreBoard";
 
 describe("ScoreBoard", () => {
   beforeEach(() => {
