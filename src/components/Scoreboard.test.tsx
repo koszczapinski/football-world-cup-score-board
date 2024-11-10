@@ -30,8 +30,8 @@ describe("ScoreBoard", () => {
     expect(liveGamesSection).toBeInTheDocument();
   });
 
-  it("renders summary section", () => {
-    const summarySection = screen.getByTestId("summary");
+  it("renders summary section", async () => {
+    const summarySection = await screen.findByTestId("summary");
     expect(summarySection).toBeInTheDocument();
   });
 
@@ -150,6 +150,9 @@ describe("ScoreBoard", () => {
     fireEvent.click(finishButton);
 
     await waitFor(() => {
+      // const summaryTab = screen.getByRole("tab", { name: /summary/i });
+      // fireEvent.click(summaryTab);
+
       const summarySection = screen.getByTestId("summary");
       const summaryItem = within(summarySection).getByRole("listitem");
 
