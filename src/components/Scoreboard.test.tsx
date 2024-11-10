@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, beforeEach } from "vitest";
-import { ScoreBoard } from "./ScoreBoard";
+import ScoreBoard from "./ScoreBoard";
 
 describe("ScoreBoard", () => {
   beforeEach(() => {
@@ -45,22 +45,22 @@ describe("ScoreBoard", () => {
       name: "Mexico vs Canada",
     });
 
-    const awayTeam = within(gameItem).getByRole("heading", {
-      name: "Canada",
+    const homeTeam = within(gameItem).getByRole("heading", {
+      name: "Home team",
       level: 3,
     });
-    const homeTeam = within(gameItem).getByRole("heading", {
-      name: "Mexico",
+    const awayTeam = within(gameItem).getByRole("heading", {
+      name: "Away team",
       level: 3,
     });
 
-    expect(awayTeam).toBeInTheDocument();
-    expect(homeTeam).toBeInTheDocument();
+    expect(homeTeam).toHaveTextContent("Mexico");
+    expect(awayTeam).toHaveTextContent("Canada");
 
     const scoreDisplay = within(gameItem).getByRole("status");
     expect(scoreDisplay).toHaveAccessibleName(
       "Current score: Canada 0, Mexico 0"
     );
-    expect(scoreDisplay).toHaveTextContent("0 : 0");
+    expect(scoreDisplay).toHaveTextContent("0:0");
   });
 });

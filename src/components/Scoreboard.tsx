@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const scoreBoard = new ScoreBoardLib();
 
-export const ScoreBoard = () => {
+const ScoreBoard = () => {
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
 
@@ -17,29 +17,58 @@ export const ScoreBoard = () => {
     <div data-testid="scoreboard">
       <h1>Football World Cup Score Board</h1>
       <div data-testid="start-game">
+        <label htmlFor="homeTeam" className="sr-only">
+          Home Team
+        </label>
         <input
+          id="homeTeam"
           type="text"
           value={homeTeam}
           onChange={(e) => setHomeTeam(e.target.value)}
           placeholder="Home Team"
+          aria-label="Home Team"
         />
+        <label htmlFor="awayTeam" className="sr-only">
+          Away Team
+        </label>
         <input
+          id="awayTeam"
           type="text"
           value={awayTeam}
           onChange={(e) => setAwayTeam(e.target.value)}
           placeholder="Away Team"
+          aria-label="Away Team"
         />
         <button onClick={handleStartGame}>Start Game</button>
       </div>
 
       <div data-testid="live-games">
         <h2>Live Games</h2>
-        {scoreBoard.getAllGames().map((game) => (
-          <div key={game.id}>
-            <h3>{game.homeTeam}</h3>
-            <h3>{game.awayTeam}</h3>
-          </div>
-        ))}
+        <ul>
+          {scoreBoard
+            .getLiveGames()
+            .map(({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
+              <li
+                key={id}
+                aria-label={`${homeTeam} vs ${awayTeam}`}
+                className="flex flex-col items-center gap-2"
+              >
+                <h3 aria-label="Home team" className="text-lg font-bold">
+                  {homeTeam}
+                </h3>
+                <div
+                  role="status"
+                  aria-label={`Current score: ${awayTeam} ${awayScore}, ${homeTeam} ${homeScore}`}
+                  className="flex items-center gap-2"
+                >
+                  <span>{awayScore}</span>
+                  <span aria-hidden="true">:</span>
+                  <span>{homeScore}</span>
+                </div>
+                <h3 aria-label="Away team">{awayTeam}</h3>
+              </li>
+            ))}
+        </ul>
       </div>
 
       <div data-testid="summary">
@@ -48,3 +77,5 @@ export const ScoreBoard = () => {
     </div>
   );
 };
+
+export default ScoreBoard;
