@@ -178,8 +178,6 @@ describe("ScoreBoard", () => {
 
     const scoreDisplay = within(summaryItems[0]).getByRole("status");
 
-    screen.debug(scoreDisplay);
-
     expect(scoreDisplay).toHaveAccessibleName(
       "Total score: France 3, Germany 2"
     );
