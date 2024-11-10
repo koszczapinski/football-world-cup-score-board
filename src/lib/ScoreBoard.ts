@@ -1,17 +1,4 @@
-export enum GameStatus {
-  LIVE = "live",
-  FINISHED = "finished",
-}
-
-export type Game = {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  homeScore: number;
-  awayScore: number;
-  timestamp: number;
-  status: GameStatus;
-};
+import { Game, GameStatus, StartGameParams, UpdateScoreParams } from "./types";
 
 export class ScoreBoard {
   private games: Game[] = [];
@@ -52,7 +39,7 @@ export class ScoreBoard {
     return b.timestamp - a.timestamp;
   }
 
-  startGame({ homeTeam, awayTeam }: { homeTeam: string; awayTeam: string }) {
+  startGame({ homeTeam, awayTeam }: StartGameParams) {
     if (!homeTeam || !awayTeam) {
       throw new Error("Both home team and away team are required");
     }
@@ -86,10 +73,7 @@ export class ScoreBoard {
     return game;
   }
 
-  updateScore(
-    id: string,
-    { homeScore, awayScore }: { homeScore: number; awayScore: number }
-  ) {
+  updateScore(id: string, { homeScore, awayScore }: UpdateScoreParams) {
     if (homeScore < 0 || awayScore < 0) {
       throw new Error("Score cannot be negative");
     }

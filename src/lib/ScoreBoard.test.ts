@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { GameStatus, ScoreBoard } from "./ScoreBoard";
+import { ScoreBoard } from "./ScoreBoard";
+import { GameStatus } from "./types";
 
 describe("ScoreBoard", () => {
   let scoreboard: ScoreBoard;
