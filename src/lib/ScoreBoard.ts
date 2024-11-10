@@ -136,8 +136,10 @@ export class ScoreBoard {
   }
 
   getSummaryByTotalScore(): Game[] {
-    return this.games
-      .filter((game) => game.status === GameStatus.FINISHED)
-      .sort((a, b) => this.sortByTotalScoreAndTimestamp(a, b));
+    return this.getFinishedGames().sort((a, b) => {
+      const totalA = a.homeScore + a.awayScore;
+      const totalB = b.homeScore + b.awayScore;
+      return totalB - totalA || b.timestamp - a.timestamp;
+    });
   }
 }
