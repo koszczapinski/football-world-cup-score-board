@@ -105,5 +105,14 @@ describe("ScoreBoard", () => {
       expect(game.homeScore).toBe(1);
       expect(game.awayScore).toBe(2);
     });
+
+    it("should throw error if game is not found", () => {
+      expect(() =>
+        scoreboard.updateScore("not-existing-id", {
+          homeScore: 1,
+          awayScore: 2,
+        })
+      ).toThrow("Game not found");
+    });
   });
 });

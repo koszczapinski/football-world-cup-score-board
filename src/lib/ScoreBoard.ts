@@ -64,6 +64,10 @@ export class ScoreBoard {
   ) {
     const game = this.games.find((game) => game.id === id);
 
+    if (!game) {
+      throw new Error("Game not found");
+    }
+
     game.homeScore = homeScore;
     game.awayScore = awayScore;
   }
