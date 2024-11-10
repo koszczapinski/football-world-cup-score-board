@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { ScoreBoard } from "./ScoreBoard";
+import { GameStatus, ScoreBoard } from "./ScoreBoard";
 
 describe("ScoreBoard", () => {
   let scoreboard: ScoreBoard;
@@ -25,6 +25,8 @@ describe("ScoreBoard", () => {
         awayTeam: "Canada",
         homeScore: 0,
         awayScore: 0,
+        timestamp: expect.any(Number),
+        status: GameStatus.LIVE,
       });
       expect(games).toHaveLength(1);
     });
