@@ -58,7 +58,11 @@ const ScoreBoard = () => {
 
   return (
     <div data-testid="scoreboard">
-      <h1>Football World Cup Score Board</h1>
+      <header className="flex flex-col items-center gap-4">
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Football World Cup Score Board
+        </h1>
+      </header>
       <section data-testid="start-game">
         <label htmlFor="homeTeam" className="sr-only">
           Home Team
@@ -142,7 +146,7 @@ const ScoreBoard = () => {
           </ul>
         ) : (
           <p className="text-gray-500 text-center py-4">
-            There are no live games currently
+            There are no live games
           </p>
         )}
       </section>
