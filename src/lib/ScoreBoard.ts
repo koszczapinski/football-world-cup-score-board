@@ -58,6 +58,16 @@ export class ScoreBoard {
     return game;
   }
 
+  updateScore(
+    id: string,
+    { homeScore, awayScore }: { homeScore: number; awayScore: number }
+  ) {
+    const game = this.games.find((game) => game.id === id);
+
+    game.homeScore = homeScore;
+    game.awayScore = awayScore;
+  }
+
   finishGame(id: string) {
     const game = this.games.find((game) => game.id === id);
     if (!game) {
