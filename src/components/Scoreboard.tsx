@@ -44,31 +44,37 @@ const ScoreBoard = () => {
 
       <div data-testid="live-games">
         <h2>Live Games</h2>
-        <ul>
-          {scoreBoard
-            .getLiveGames()
-            .map(({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
-              <li
-                key={id}
-                aria-label={`${homeTeam} vs ${awayTeam}`}
-                className="flex flex-col items-center gap-2"
-              >
-                <h3 aria-label="Home team" className="text-lg font-bold">
-                  {homeTeam}
-                </h3>
-                <div
-                  role="status"
-                  aria-label={`Current score: ${awayTeam} ${awayScore}, ${homeTeam} ${homeScore}`}
-                  className="flex items-center gap-2"
+        {scoreBoard.getLiveGames().length > 0 ? (
+          <ul>
+            {scoreBoard
+              .getLiveGames()
+              .map(({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
+                <li
+                  key={id}
+                  aria-label={`${homeTeam} vs ${awayTeam}`}
+                  className="flex flex-col items-center gap-2"
                 >
-                  <span>{awayScore}</span>
-                  <span aria-hidden="true">:</span>
-                  <span>{homeScore}</span>
-                </div>
-                <h3 aria-label="Away team">{awayTeam}</h3>
-              </li>
-            ))}
-        </ul>
+                  <h3 aria-label="Home team" className="text-lg font-bold">
+                    {homeTeam}
+                  </h3>
+                  <div
+                    role="status"
+                    aria-label={`Current score: ${awayTeam} ${awayScore}, ${homeTeam} ${homeScore}`}
+                    className="flex items-center gap-2"
+                  >
+                    <span>{awayScore}</span>
+                    <span aria-hidden="true">:</span>
+                    <span>{homeScore}</span>
+                  </div>
+                  <h3 aria-label="Away team">{awayTeam}</h3>
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500 text-center py-4">
+            There are no live games currently
+          </p>
+        )}
       </div>
 
       <div data-testid="summary">

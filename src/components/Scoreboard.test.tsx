@@ -63,4 +63,29 @@ describe("ScoreBoard", () => {
     );
     expect(scoreDisplay).toHaveTextContent("0:0");
   });
+
+  it("allows user to finish a game", () => {
+    const homeTeamInput = screen.getByLabelText("Home Team");
+    const awayTeamInput = screen.getByLabelText("Away Team");
+    const startGameButton = screen.getByRole("button", {
+      name: "Start Game",
+    });
+
+    fireEvent.change(homeTeamInput, { target: { value: "Mexico" } });
+    fireEvent.change(awayTeamInput, { target: { value: "Canada" } });
+    fireEvent.click(startGameButton);
+
+    const liveGamesSection = screen.getByTestId("live-games");
+    const gameItem = within(liveGamesSection).getByRole("listitem", {
+      name: "Mexico vs Canada",
+    });
+
+    const finishGameButton = within(gameItem).getByRole("button", {
+      name: "Finish",
+    });
+
+    fireEvent.click(finishGameButton);
+
+    expect(gameItem).not.toBeInTheDocument();
+  });
 });
