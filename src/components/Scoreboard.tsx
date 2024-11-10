@@ -5,6 +5,10 @@ const ScoreBoard = () => {
         <h1>Football World Cup Score Board</h1>
       </div>
 
+      <div data-testid="start-game">
+        <button>Start Game</button>
+      </div>
+
       <div data-testid="live-games">
         <h2>Live Games</h2>
       </div>
