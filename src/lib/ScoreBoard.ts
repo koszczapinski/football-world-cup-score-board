@@ -94,7 +94,7 @@ export class ScoreBoard {
       throw new Error("Both home team and away team are required");
     }
 
-    if (homeTeam === awayTeam) {
+    if (this.normalizeTeamName(homeTeam) === this.normalizeTeamName(awayTeam)) {
       throw new Error("Home team and away team cannot be the same");
     }
   }
