@@ -79,10 +79,10 @@ const ScoreBoard = () => {
       <Tabs defaultValue="live" className="w-full">
         <TabsList className="w-full h-12">
           <TabsTrigger value="live" className="w-full text-lg font-bold">
-            Live Games
+            Live Games ({liveGames.length})
           </TabsTrigger>
           <TabsTrigger value="summary" className="w-full text-lg font-bold">
-            Summary
+            Summary ({summary.length})
           </TabsTrigger>
         </TabsList>
         <TabsContent value="live" data-testid="live-games">
