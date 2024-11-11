@@ -106,17 +106,17 @@ const ScoreBoard = () => {
                             <div className="text-center">
                               <h3
                                 aria-label="Home team"
-                                className="text-lg font-semibold"
+                                className="text-xl font-semibold"
                               >
                                 {homeTeam}
                               </h3>
                               <div className="text-3xl font-bold">
                                 {homeScore}
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex gap-1 flex-col">
                                 <label
                                   htmlFor={`homeScore-${id}`}
-                                  className="sr-only"
+                                  className="text-sm"
                                 >
                                   Home Score
                                 </label>
@@ -125,7 +125,7 @@ const ScoreBoard = () => {
                                   type="number"
                                   min={0}
                                   value={liveScores[id]?.homeScore ?? 0}
-                                  className="text-center"
+                                  className="pl-6 text-center"
                                   onChange={(e) =>
                                     handleScoreInputChange(
                                       id,
@@ -139,17 +139,17 @@ const ScoreBoard = () => {
                             <div className="text-center">
                               <h3
                                 aria-label="Away team"
-                                className="text-lg font-semibold"
+                                className="text-xl font-semibold"
                               >
                                 {awayTeam}
                               </h3>
                               <div className="text-3xl font-bold">
                                 {awayScore}
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex gap-1 flex-col">
                                 <label
                                   htmlFor={`awayScore-${id}`}
-                                  className="sr-only"
+                                  className="text-sm"
                                 >
                                   Away Score
                                 </label>
@@ -158,7 +158,7 @@ const ScoreBoard = () => {
                                   type="number"
                                   min={0}
                                   value={liveScores[id]?.awayScore ?? 0}
-                                  className="text-center"
+                                  className="pl-6 text-center"
                                   onChange={(e) =>
                                     handleScoreInputChange(
                                       id,
