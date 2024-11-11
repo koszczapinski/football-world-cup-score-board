@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScoreBoardTitle } from "@/components/ScoreBoardTitle";
+import { Card, CardContent } from "@/components/ui/card";
 
 const ScoreBoard = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -98,18 +99,43 @@ const ScoreBoard = () => {
                     aria-label={`${homeTeam} vs ${awayTeam}`}
                     className="flex flex-col items-center gap-2"
                   >
+                    <Card className="mb-4 w-full">
+                      <CardContent className="pt-6">
+                        <div className="flex flex-col items-center">
+                          <div className="grid grid-cols-2 gap-8 items-center mb-4 w-full">
+                            <div className="text-center">
+                              <h3 className="text-lg font-semibold">
+                                {homeTeam}
+                              </h3>
+                              <div className="text-3xl font-bold">
+                                {homeScore}
+                              </div>
+                            </div>
+                            <div className="text-center">
+                              <h3 className="text-lg font-semibold">
+                                {awayTeam}
+                              </h3>
+                              <div className="text-3xl font-bold">
+                                {awayScore}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          role="status"
+                          aria-label={`Current score: ${homeTeam} ${homeScore}, ${awayTeam} ${awayScore}`}
+                          className="items-center gap-2 hidden"
+                        >
+                          <span>{homeScore}</span>
+                          <span aria-hidden="true">:</span>
+                          <span>{awayScore}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <hr />
                     <h3 aria-label="Home team" className="text-lg font-bold">
                       {homeTeam}
                     </h3>
-                    <div
-                      role="status"
-                      aria-label={`Current score: ${awayTeam} ${awayScore}, ${homeTeam} ${homeScore}`}
-                      className="flex items-center gap-2"
-                    >
-                      <span>{awayScore}</span>
-                      <span aria-hidden="true">:</span>
-                      <span>{homeScore}</span>
-                    </div>
                     <h3 aria-label="Away team">{awayTeam}</h3>
                     <div className="flex gap-2">
                       <label htmlFor={`homeScore-${id}`}>Home Score</label>
@@ -194,19 +220,39 @@ const ScoreBoard = () => {
                     aria-label={`${homeTeam} vs ${awayTeam}`}
                     className="flex flex-col items-center gap-2"
                   >
-                    <h3 aria-label="Home team" className="text-lg font-bold">
-                      {homeTeam}
-                    </h3>
-                    <div
-                      role="status"
-                      aria-label={`Total score: ${homeTeam} ${homeScore}, ${awayTeam} ${awayScore}`}
-                      className="flex items-center gap-2"
-                    >
-                      <span>{homeScore}</span>
-                      <span aria-hidden="true">:</span>
-                      <span>{awayScore}</span>
-                    </div>
-                    <h3 aria-label="Away team">{awayTeam}</h3>
+                    <Card className="mb-4 w-full">
+                      <CardContent className="pt-6">
+                        <div className="flex flex-col items-center">
+                          <div className="grid grid-cols-2 gap-8 items-center mb-4 w-full">
+                            <div className="text-center">
+                              <h3 className="text-lg font-semibold">
+                                {homeTeam}
+                              </h3>
+                              <div className="text-3xl font-bold">
+                                {homeScore}
+                              </div>
+                            </div>
+                            <div className="text-center">
+                              <h3 className="text-lg font-semibold">
+                                {awayTeam}
+                              </h3>
+                              <div className="text-3xl font-bold">
+                                {awayScore}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          role="status"
+                          aria-label={`Total score: ${homeTeam} ${homeScore}, ${awayTeam} ${awayScore}`}
+                          className="items-center gap-2 hidden"
+                        >
+                          <span>{homeScore}</span>
+                          <span aria-hidden="true">:</span>
+                          <span>{awayScore}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </li>
                 )
               )}
