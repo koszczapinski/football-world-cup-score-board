@@ -74,7 +74,7 @@ const ScoreBoard = () => {
 
   return (
     <div data-testid="scoreboard" className="container mx-auto p-4">
-      <TypographyH1 className="text-center py-6">
+      <TypographyH1 className="text-center py-8">
         Football World Cup Score Board
       </TypographyH1>
       <Tabs defaultValue="live" className="w-full">
