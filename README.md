@@ -35,12 +35,15 @@ src/
 │ │ └── tabs.tsx
 │ └── ScoreBoard/
 │ ├── index.tsx # Main ScoreBoard component
+│ ├── ScoreBoard.test.tsx # Component tests
 │ ├── LiveGameCard.tsx
 │ ├── SummaryGameCard.tsx
 │ ├── useScoreBoard.ts
-│ └── ScoreBoard.test.tsx # Component tests
+│ ├── StartGameForm.tsx
+│ └── ScoreBoardTitle.tsx
 │
 └── App.tsx # Root component
+
 ```
 
 ## Architecture
