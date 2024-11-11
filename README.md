@@ -21,9 +21,6 @@ A TypeScript library implementation of a Football World Cup Score Board that all
 
 ```
 src/
-├── lib/                    # Core business logic
-│   ├── ScoreBoard.ts      # Main scoreboard logic
-src/
 ├── lib/ # Core business logic
 │ ├── ScoreBoard.ts # Main scoreboard logic class
 │ ├── ScoreBoard.test.ts # Tests for scoreboard logic
@@ -36,14 +33,12 @@ src/
 │ │ ├── input.tsx
 │ │ ├── card.tsx
 │ │ └── tabs.tsx
-│ │
-│ └── ScoreBoard/ # Main scoreboard component
-│ ├── index.tsx # Main component
+│ └── ScoreBoard/
+│ ├── index.tsx # Main ScoreBoard component
 │ ├── LiveGameCard.tsx
 │ ├── SummaryGameCard.tsx
 │ ├── useScoreBoard.ts
-│ └── tests/ # Component tests
-│ └── ScoreBoard.test.tsx
+│ └── ScoreBoard.test.tsx # Component tests
 │
 └── App.tsx # Root component
 ```
