@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TypographyH1, TypographyH2 } from "@/components/ui/Typography";
+
 const ScoreBoard = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [homeTeam, setHomeTeam] = useState("");
@@ -77,16 +78,15 @@ const ScoreBoard = () => {
         Football World Cup Score Board
       </TypographyH1>
       <Tabs defaultValue="live" className="w-full">
-        <TabsList className="w-full">
-          <TabsTrigger value="live" className="w-full">
+        <TabsList className="w-full h-12">
+          <TabsTrigger value="live" className="w-full text-lg font-bold">
             Live Games
           </TabsTrigger>
-          <TabsTrigger value="summary" className="w-full">
+          <TabsTrigger value="summary" className="w-full text-lg font-bold">
             Summary
           </TabsTrigger>
         </TabsList>
         <TabsContent value="live" data-testid="live-games">
-          <TypographyH2>Live Games</TypographyH2>
           {liveGames.length > 0 ? (
             <ul>
               {liveGames.map(
@@ -183,9 +183,6 @@ const ScoreBoard = () => {
           </div>
         </TabsContent>
         <TabsContent value="summary" data-testid="summary">
-          <h2 className="scroll-m-20 text-xl font-semibold tracking-tight">
-            Summary
-          </h2>
           {summary.length > 0 ? (
             <ul>
               {summary.map(
