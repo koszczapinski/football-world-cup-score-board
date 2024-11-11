@@ -87,7 +87,11 @@ const ScoreBoard = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="live" data-testid="live-games">
-          {liveGames.length > 0 ? (
+          {liveGames.length === 0 ? (
+            <p className="text-gray-500 text-center py-4">
+              There are no live games
+            </p>
+          ) : (
             <ul>
               {liveGames.map(
                 ({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
@@ -148,10 +152,6 @@ const ScoreBoard = () => {
                 )
               )}
             </ul>
-          ) : (
-            <p className="text-gray-500 text-center py-4">
-              There are no live games
-            </p>
           )}
           <div
             data-testid="start-game"
@@ -183,7 +183,11 @@ const ScoreBoard = () => {
           </div>
         </TabsContent>
         <TabsContent value="summary" data-testid="summary">
-          {summary.length > 0 ? (
+          {summary.length === 0 ? (
+            <p className="text-gray-500 text-center py-4">
+              There are no finished games
+            </p>
+          ) : (
             <ul>
               {summary.map(
                 ({ id, homeTeam, awayTeam, homeScore, awayScore }) => (
@@ -197,22 +201,18 @@ const ScoreBoard = () => {
                     </h3>
                     <div
                       role="status"
-                      aria-label={`Total score: ${awayTeam} ${awayScore}, ${homeTeam} ${homeScore}`}
+                      aria-label={`Total score: ${homeTeam} ${homeScore}, ${awayTeam} ${awayScore}`}
                       className="flex items-center gap-2"
                     >
-                      <span>{awayScore}</span>
-                      <span aria-hidden="true">:</span>
                       <span>{homeScore}</span>
+                      <span aria-hidden="true">:</span>
+                      <span>{awayScore}</span>
                     </div>
                     <h3 aria-label="Away team">{awayTeam}</h3>
                   </li>
                 )
               )}
             </ul>
-          ) : (
-            <p className="text-gray-500 text-center py-4">
-              There are no finished games
-            </p>
           )}
         </TabsContent>
       </Tabs>

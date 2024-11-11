@@ -179,8 +179,8 @@ describe("ScoreBoard", () => {
     const scoreDisplay = within(summaryItems[0]).getByRole("status");
 
     expect(scoreDisplay).toHaveAccessibleName(
-      "Total score: France 3, Germany 2"
+      "Total score: Germany 2, France 3"
     );
-    expect(scoreDisplay).toHaveTextContent("3:2");
+    expect(scoreDisplay).toHaveTextContent("2:3");
   });
 });
