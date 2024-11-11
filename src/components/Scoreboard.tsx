@@ -113,6 +113,28 @@ const ScoreBoard = () => {
                               <div className="text-3xl font-bold">
                                 {homeScore}
                               </div>
+                              <div className="flex items-center">
+                                <label
+                                  htmlFor={`homeScore-${id}`}
+                                  className="sr-only"
+                                >
+                                  Home Score
+                                </label>
+                                <Input
+                                  id={`homeScore-${id}`}
+                                  type="number"
+                                  min={0}
+                                  value={liveScores[id]?.homeScore ?? 0}
+                                  className="text-center"
+                                  onChange={(e) =>
+                                    handleScoreInputChange(
+                                      id,
+                                      "homeScore",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
                             </div>
                             <div className="text-center">
                               <h3
@@ -124,55 +146,50 @@ const ScoreBoard = () => {
                               <div className="text-3xl font-bold">
                                 {awayScore}
                               </div>
+                              <div className="flex items-center">
+                                <label
+                                  htmlFor={`awayScore-${id}`}
+                                  className="sr-only"
+                                >
+                                  Away Score
+                                </label>
+                                <Input
+                                  id={`awayScore-${id}`}
+                                  type="number"
+                                  min={0}
+                                  value={liveScores[id]?.awayScore ?? 0}
+                                  className="text-center"
+                                  onChange={(e) =>
+                                    handleScoreInputChange(
+                                      id,
+                                      "awayScore",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          role="status"
-                          aria-label={`Current score: ${homeTeam} ${homeScore}, ${awayTeam} ${awayScore}`}
-                          className="items-center gap-2 hidden"
-                        >
-                          <span>{homeScore}</span>
-                          <span aria-hidden="true">:</span>
-                          <span>{awayScore}</span>
+                          <div className="flex flex-col gap-2 w-full">
+                            <Button onClick={() => handleUpdateScore(id)}>
+                              Update Score
+                            </Button>
+                            <Button onClick={() => handleFinishGame(id)}>
+                              Finish
+                            </Button>
+                          </div>
+                          <div
+                            role="status"
+                            aria-label={`Current score: ${homeTeam} ${homeScore}, ${awayTeam} ${awayScore}`}
+                            className="items-center gap-2 hidden"
+                          >
+                            <span>{homeScore}</span>
+                            <span aria-hidden="true">:</span>
+                            <span>{awayScore}</span>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
-                    <div className="flex gap-2">
-                      <label htmlFor={`homeScore-${id}`}>Home Score</label>
-                      <Input
-                        id={`homeScore-${id}`}
-                        type="number"
-                        min={0}
-                        value={liveScores[id]?.homeScore ?? 0}
-                        onChange={(e) =>
-                          handleScoreInputChange(
-                            id,
-                            "homeScore",
-                            e.target.value
-                          )
-                        }
-                      />
-                      <span aria-hidden="true">:</span>
-                      <label htmlFor={`awayScore-${id}`}>Away Score</label>
-                      <Input
-                        id={`awayScore-${id}`}
-                        type="number"
-                        min={0}
-                        value={liveScores[id]?.awayScore ?? 0}
-                        onChange={(e) =>
-                          handleScoreInputChange(
-                            id,
-                            "awayScore",
-                            e.target.value
-                          )
-                        }
-                      />
-                      <Button onClick={() => handleUpdateScore(id)}>
-                        Update Score
-                      </Button>
-                    </div>
-                    <Button onClick={() => handleFinishGame(id)}>Finish</Button>
                   </li>
                 )
               )}
@@ -192,6 +209,7 @@ const ScoreBoard = () => {
               onChange={(e) => setHomeTeam(e.target.value)}
               placeholder="Home Team"
               aria-label="Home Team"
+              className="text-center"
             />
             <label htmlFor="awayTeam" className="sr-only">
               Away Team
@@ -203,6 +221,7 @@ const ScoreBoard = () => {
               onChange={(e) => setAwayTeam(e.target.value)}
               placeholder="Away Team"
               aria-label="Away Team"
+              className="text-center"
             />
             <Button onClick={handleStartGame} className="col-span-2">
               Start Game
