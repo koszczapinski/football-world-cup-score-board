@@ -52,7 +52,11 @@ export const StartGameForm = ({ onStartGame }: StartGameFormProps) => {
           aria-label="Away Team"
           className="text-center"
         />
-        <Button onClick={handleSubmit} className="col-span-2">
+        <Button
+          aria-label="Start Game"
+          onClick={handleSubmit}
+          className="col-span-2"
+        >
           Start Game
         </Button>
       </div>

@@ -1,9 +1,9 @@
 import { useCallback, useState, useMemo } from "react";
 import { ScoreBoard as ScoreBoardLib } from "@/lib/ScoreBoard";
 import { Game, LiveScores } from "@/lib/types";
-import { StartGameParams } from "@/components/StartGameForm";
+import { StartGameParams } from "@/components/ScoreBoard/StartGameForm";
 
-export const useScoreboard = () => {
+export const useScoreBoard = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [liveScores, setLiveScores] = useState<LiveScores>({});
   const scoreBoard = useMemo(() => new ScoreBoardLib(), []);

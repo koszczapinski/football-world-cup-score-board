@@ -31,6 +31,7 @@ export const LiveGameCard = ({
           <div className="grid grid-cols-2 gap-8 items-center mb-4 w-full">
             <TeamScore
               team={homeTeam}
+              side="home"
               score={homeScore}
               inputId={`homeScore-${id}`}
               inputValue={liveScores[id]?.homeScore ?? 0}
@@ -38,6 +39,7 @@ export const LiveGameCard = ({
             />
             <TeamScore
               team={awayTeam}
+              side="away"
               score={awayScore}
               inputId={`awayScore-${id}`}
               inputValue={liveScores[id]?.awayScore ?? 0}
@@ -45,17 +47,11 @@ export const LiveGameCard = ({
             />
           </div>
           <div className="flex flex-col gap-2 w-full">
-            <Button
-              onClick={() => onUpdateScore(id)}
-              aria-label={`Update score for ${homeTeam} vs ${awayTeam}`}
-            >
+            <Button aria-label="Update Score" onClick={() => onUpdateScore(id)}>
               Update Score
             </Button>
-            <Button
-              onClick={() => onFinishGame(id)}
-              aria-label={`Finish game ${homeTeam} vs ${awayTeam}`}
-            >
-              Finish
+            <Button aria-label="Finish Game" onClick={() => onFinishGame(id)}>
+              Finish Game
             </Button>
           </div>
           <div
@@ -75,6 +71,7 @@ export const LiveGameCard = ({
 
 interface TeamScoreProps {
   team: string;
+  side: "home" | "away";
   score: number;
   inputId: string;
   inputValue: number;
@@ -83,17 +80,23 @@ interface TeamScoreProps {
 
 const TeamScore = ({
   team,
+  side,
   score,
   inputId,
   inputValue,
   onChange,
 }: TeamScoreProps) => (
   <div className="text-center">
-    <h3 className="text-xl font-semibold">{team}</h3>
+    <h3
+      aria-label={`${side === "home" ? "Home" : "Away"} team`}
+      className="text-xl font-semibold"
+    >
+      {team}
+    </h3>
     <div className="text-3xl font-bold">{score}</div>
     <div className="flex gap-1 flex-col">
       <label htmlFor={inputId} className="text-sm">
-        Score
+        {side === "home" ? "Home" : "Away"} Score
       </label>
       <Input
         id={inputId}

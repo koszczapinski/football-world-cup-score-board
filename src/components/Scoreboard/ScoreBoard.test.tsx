@@ -7,7 +7,7 @@ import {
   within,
 } from "@testing-library/react";
 import { describe, expect, it, beforeEach } from "vitest";
-import ScoreBoard from "./ScoreBoard";
+import ScoreBoard from "@/components/ScoreBoard/index";
 
 describe("ScoreBoard", () => {
   beforeEach(() => {
@@ -88,7 +88,7 @@ describe("ScoreBoard", () => {
     });
 
     const finishGameButton = within(gameItem).getByRole("button", {
-      name: "Finish",
+      name: "Finish Game",
     });
 
     fireEvent.click(finishGameButton);
@@ -159,7 +159,7 @@ describe("ScoreBoard", () => {
 
     // Finish game
     const finishButton = within(liveGame).getByRole("button", {
-      name: "Finish",
+      name: "Finish Game",
     });
     await user.click(finishButton);
 
