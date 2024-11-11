@@ -1,4 +1,4 @@
-import ScoreBoard from "./components/ScoreBoard";
+import ScoreBoard from "@/components/Scoreboard";
 
 function App() {
   return <ScoreBoard />;
