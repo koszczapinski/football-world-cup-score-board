@@ -66,7 +66,7 @@ describe("ScoreBoard", () => {
 
     const scoreDisplay = within(gameItem).getByRole("status");
     expect(scoreDisplay).toHaveAccessibleName(
-      "Current score: Canada 0, Mexico 0"
+      "Current score: Mexico 0, Canada 0"
     );
     expect(scoreDisplay).toHaveTextContent("0:0");
   });
@@ -125,9 +125,9 @@ describe("ScoreBoard", () => {
     await waitFor(() => {
       const scoreDisplay = within(gameItem).getByRole("status");
       expect(scoreDisplay).toHaveAccessibleName(
-        "Current score: France 2, Germany 1"
+        "Current score: Germany 1, France 2"
       );
-      expect(scoreDisplay).toHaveTextContent("2:1");
+      expect(scoreDisplay).toHaveTextContent("1:2");
     });
   });
 
