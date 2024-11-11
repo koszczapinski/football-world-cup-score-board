@@ -4,7 +4,7 @@ import { useCallback, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TypographyH1, TypographyH2 } from "@/components/ui/Typography";
+import { ScoreBoardTitle } from "@/components/ScoreBoardTitle";
 
 const ScoreBoard = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -74,9 +74,7 @@ const ScoreBoard = () => {
 
   return (
     <div data-testid="scoreboard" className="container mx-auto p-4">
-      <TypographyH1 className="text-center py-8">
-        Football World Cup Score Board
-      </TypographyH1>
+      <ScoreBoardTitle />
       <Tabs defaultValue="live" className="w-full">
         <TabsList className="w-full h-12">
           <TabsTrigger value="live" className="w-full text-lg font-bold">
