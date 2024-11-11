@@ -104,7 +104,10 @@ const ScoreBoard = () => {
                         <div className="flex flex-col items-center">
                           <div className="grid grid-cols-2 gap-8 items-center mb-4 w-full">
                             <div className="text-center">
-                              <h3 className="text-lg font-semibold">
+                              <h3
+                                aria-label="Home team"
+                                className="text-lg font-semibold"
+                              >
                                 {homeTeam}
                               </h3>
                               <div className="text-3xl font-bold">
@@ -112,7 +115,10 @@ const ScoreBoard = () => {
                               </div>
                             </div>
                             <div className="text-center">
-                              <h3 className="text-lg font-semibold">
+                              <h3
+                                aria-label="Away team"
+                                className="text-lg font-semibold"
+                              >
                                 {awayTeam}
                               </h3>
                               <div className="text-3xl font-bold">
@@ -132,11 +138,6 @@ const ScoreBoard = () => {
                         </div>
                       </CardContent>
                     </Card>
-                    <hr />
-                    <h3 aria-label="Home team" className="text-lg font-bold">
-                      {homeTeam}
-                    </h3>
-                    <h3 aria-label="Away team">{awayTeam}</h3>
                     <div className="flex gap-2">
                       <label htmlFor={`homeScore-${id}`}>Home Score</label>
                       <Input
@@ -179,7 +180,7 @@ const ScoreBoard = () => {
           )}
           <div
             data-testid="start-game"
-            className="grid grid-cols-3 items-center gap-4"
+            className="grid grid-cols-2 items-center gap-4"
           >
             <label htmlFor="homeTeam" className="sr-only">
               Home Team
@@ -192,7 +193,6 @@ const ScoreBoard = () => {
               placeholder="Home Team"
               aria-label="Home Team"
             />
-            <Button onClick={handleStartGame}>Start Game</Button>
             <label htmlFor="awayTeam" className="sr-only">
               Away Team
             </label>
@@ -204,6 +204,9 @@ const ScoreBoard = () => {
               placeholder="Away Team"
               aria-label="Away Team"
             />
+            <Button onClick={handleStartGame} className="col-span-2">
+              Start Game
+            </Button>
           </div>
         </TabsContent>
         <TabsContent value="summary" data-testid="summary">
