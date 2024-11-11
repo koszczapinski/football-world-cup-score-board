@@ -6,7 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScoreBoardTitle } from "@/components/ScoreBoardTitle";
 import { Card, CardContent } from "@/components/ui/card";
-import StartGameForm from "@/components/StartGameForm";
+import {
+  StartGameForm,
+  type StartGameParams,
+} from "@/components/StartGameForm";
 
 const ScoreBoard = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -18,13 +21,7 @@ const ScoreBoard = () => {
     console.log(games);
   }, [scoreBoard, games]);
 
-  const handleStartGame = ({
-    homeTeam,
-    awayTeam,
-  }: {
-    homeTeam: string;
-    awayTeam: string;
-  }) => {
+  const handleStartGame = ({ homeTeam, awayTeam }: StartGameParams) => {
     try {
       scoreBoard.startGame({ homeTeam, awayTeam });
       refreshGames();

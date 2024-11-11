@@ -2,17 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
+export type StartGameParams = {
+  homeTeam: string;
+  awayTeam: string;
+};
+
 interface StartGameFormProps {
-  onStartGame: ({
-    homeTeam,
-    awayTeam,
-  }: {
-    homeTeam: string;
-    awayTeam: string;
-  }) => void;
+  onStartGame: (params: StartGameParams) => void;
 }
 
-const StartGameForm = ({ onStartGame }: StartGameFormProps) => {
+export const StartGameForm = ({ onStartGame }: StartGameFormProps) => {
   const [homeTeam, setHomeTeam] = useState("");
   const [awayTeam, setAwayTeam] = useState("");
 
@@ -57,5 +56,3 @@ const StartGameForm = ({ onStartGame }: StartGameFormProps) => {
     </div>
   );
 };
-
-export default StartGameForm;
