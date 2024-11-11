@@ -22,3 +22,7 @@ export function TypographyH2({ children, className }: TypographyProps) {
     </h2>
   );
 }
+
+export function TypographyH3({ children, className }: TypographyProps) {
+  return <h3 className={`text-lg font-semibold ${className}`}>{children}</h3>;
+}

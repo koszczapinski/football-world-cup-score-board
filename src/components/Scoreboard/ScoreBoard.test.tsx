@@ -7,7 +7,7 @@ import {
   within,
 } from "@testing-library/react";
 import { describe, expect, it, beforeEach } from "vitest";
-import ScoreBoard from "./ScoreBoard";
+import ScoreBoard from "@/components/ScoreBoard/index";
 
 describe("ScoreBoard", () => {
   beforeEach(() => {
@@ -66,7 +66,7 @@ describe("ScoreBoard", () => {
 
     const scoreDisplay = within(gameItem).getByRole("status");
     expect(scoreDisplay).toHaveAccessibleName(
-      "Current score: Canada 0, Mexico 0"
+      "Current score: Mexico 0, Canada 0"
     );
     expect(scoreDisplay).toHaveTextContent("0:0");
   });
@@ -88,7 +88,7 @@ describe("ScoreBoard", () => {
     });
 
     const finishGameButton = within(gameItem).getByRole("button", {
-      name: "Finish",
+      name: "Finish Game",
     });
 
     fireEvent.click(finishGameButton);
@@ -125,9 +125,9 @@ describe("ScoreBoard", () => {
     await waitFor(() => {
       const scoreDisplay = within(gameItem).getByRole("status");
       expect(scoreDisplay).toHaveAccessibleName(
-        "Current score: France 2, Germany 1"
+        "Current score: Germany 1, France 2"
       );
-      expect(scoreDisplay).toHaveTextContent("2:1");
+      expect(scoreDisplay).toHaveTextContent("1:2");
     });
   });
 
@@ -159,7 +159,7 @@ describe("ScoreBoard", () => {
 
     // Finish game
     const finishButton = within(liveGame).getByRole("button", {
-      name: "Finish",
+      name: "Finish Game",
     });
     await user.click(finishButton);
 
@@ -178,11 +178,9 @@ describe("ScoreBoard", () => {
 
     const scoreDisplay = within(summaryItems[0]).getByRole("status");
 
-    screen.debug(scoreDisplay);
-
     expect(scoreDisplay).toHaveAccessibleName(
-      "Total score: France 3, Germany 2"
+      "Total score: Germany 2, France 3"
     );
-    expect(scoreDisplay).toHaveTextContent("3:2");
+    expect(scoreDisplay).toHaveTextContent("2:3");
   });
 });
